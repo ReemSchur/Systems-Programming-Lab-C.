@@ -1,7 +1,6 @@
 # Define the compiler and flags
 CC = gcc
-# CFLAGS: -Wall enables common warnings, -g includes debug information
-# NOTE: The '-m32' flag is maintained based on your original request.
+# CFLAGS: -Wall enables common warnings, -g includes debug information, -m32 for 32-bit environment
 CFLAGS = -Wall -g -m32
 
 # External LineParser files (used by myshell)
@@ -9,20 +8,20 @@ LINEPARSER_OBJS = LineParser.o
 
 # --- Main Targets ---
 
-# Default target: builds all executables for the lab (myshell, looper, mypipe)
-all: myshell looper mypipe
+# Default target: builds all executables including the new pipeline task
+all: myshell looper mypipeline
 
-# Target 1: Compiling the myshell executable (Task 1, 2, 3)
+# Target 1: Compiling the myshell executable
 myshell: myshell.o $(LINEPARSER_OBJS)
 	$(CC) $(CFLAGS) -o myshell myshell.o $(LINEPARSER_OBJS)
 
-# Target 2: Compiling the looper executable (Task 0b)
+# Target 2: Compiling the looper executable
 looper: Looper.o
 	$(CC) $(CFLAGS) -o looper Looper.o
 
-# Target 3: Compiling the mypipe executable (Task 4)
-mypipe: mypipe.o
-	$(CC) $(CFLAGS) -o mypipe mypipe.o
+# Target 3: Compiling the mypipeline executable (Lab C - Part 1)
+mypipeline: mypipeline.o
+	$(CC) $(CFLAGS) -o mypipeline mypipeline.o
 
 # --- Object File Rules ---
 
@@ -38,12 +37,12 @@ LineParser.o: LineParser.c LineParser.h
 Looper.o: Looper.c
 	$(CC) $(CFLAGS) -c Looper.c
 
-# Rule for mypipe object file
-mypipe.o: mypipe.c
-	$(CC) $(CFLAGS) -c mypipe.c
+# Rule for mypipeline object file
+mypipeline.o: mypipeline.c
+	$(CC) $(CFLAGS) -c mypipeline.c
 
 # --- Cleanup Rule ---
 
-# Target to clean up compiled files, executables, and object files
+# Target to clean up compiled files
 clean:
-	rm -f *.o myshell looper mypipe
+	rm -f *.o myshell looper mypipeline
